@@ -30,3 +30,10 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+group :development do
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'spring'
+end
+
