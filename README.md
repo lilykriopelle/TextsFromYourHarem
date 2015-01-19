@@ -8,5 +8,5 @@ Basic use case I am thinking of is for dudes on dates to alias my twilio phone n
 This application will implement:
 +   Devise
 +   Omniauth (Facebook only at the start because that's what I know)
-+   Twilio (to send messages)
++   Twilio (to send messages (EMOJIS????))
 +   Stripe (for the users to pay for blocks of texts)
