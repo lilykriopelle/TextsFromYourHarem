@@ -228,7 +228,22 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
-  config.omniauth :facebook, "KEY", "SECRET"
+  
+  #===================some stuff below should be uncommented depending on ENV
+  temp_arr = []
+  i = 0
+  File.readlines('omniauth_keys/keys.txt').each do |line, idx|
+    temp_arr[i] = line.gsub("\n","")
+    i += 1
+  end
+
+  master = {facebook: {}} #fill this up with other providers later
+  master[:facebook][:app_id] = temp_arr[0]
+  master[:facebook][:app_secret] = temp_arr[1]
+  #
+  config.omniauth :facebook, master[:facebook][:app_id], master[:facebook][:app_secret]
+  
+  # config.omniauth :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET']
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
