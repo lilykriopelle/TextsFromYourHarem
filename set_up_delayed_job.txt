@@ -1,0 +1,4 @@
+# http://stackoverflow.com/questions/9853842/delayed-job-run-at-is-not-working-all-jobs-set-to-run-at-current-time
+
+# Delay the execution of some method in this way:
+User.delay(:run_at => 5.days.from_now).new
