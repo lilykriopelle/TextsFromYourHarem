@@ -5,12 +5,12 @@ class PlansController < ApplicationController
   
   def show
     @plan = Plan.find(params[:id])
-    @scheduled_messages = ScheduledMessage.find_by_plan_id(params[:id])
+    @scheduled_messages = ScheduledMessage.where(plan_id: params[:id])
     render :show
   end
   
   def create
-    
+    render :create
   end
   
   def update
@@ -19,5 +19,10 @@ class PlansController < ApplicationController
   
   def destroy
     
+  end
+  
+  private
+  def plan_params
+    params.require(:plan).permit(:booker_id, :start_time, :end_time, :message_pattern_id, :number_of_fake_women)
   end
 end
