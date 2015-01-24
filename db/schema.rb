@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122003002) do
+ActiveRecord::Schema.define(version: 20150124023423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -27,8 +43,8 @@ ActiveRecord::Schema.define(version: 20150122003002) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "plans", force: true do |t|
-    t.datetime "start_time",         null: false
-    t.datetime "end_time",           null: false
+    t.datetime "start_time",           null: false
+    t.datetime "end_time",             null: false
     t.integer  "booker_id"
     t.integer  "message_pattern_id"
     t.integer  "number_of_fake_women"

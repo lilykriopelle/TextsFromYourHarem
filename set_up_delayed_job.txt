@@ -2,3 +2,28 @@
 
 # Delay the execution of some method in this way:
 User.delay(:run_at => 5.days.from_now).new
+
+RAILS_ENV=development bin/delayed_job start
+RAILS_ENV=development bin/delayed_job stop
+
+Log of successful runs:
+
+[20] pry(main)> User.delay(run_at: 30.seconds.from_now).create!(email: "b@gmail.com", password: "password1", name: "Sally", confirmed_at: Time.now)
+   (0.2ms)  BEGIN
+  SQL (0.2ms)  INSERT INTO "delayed_jobs" ("created_at", "handler", "run_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", "2015-01-24 02:56:38.463911"], ["handler", "--- !ruby/object:Delayed::PerformableMethod\nobject: !ruby/class 'User'\nmethod_name: :create!\nargs:\n- :email: b@gmail.com\n  :password: password1\n  :name: Sally\n  :confirmed_at: 2015-01-23 18:56:38.462153000 -08:00\n"], ["run_at", "2015-01-24 02:57:08.461982"], ["updated_at", "2015-01-24 02:56:38.463911"]]
+   (1.0ms)  COMMIT
+=> #<Delayed::Backend::ActiveRecord::Job id: 6, priority: 0, attempts: 0, handler: "--- !ruby/object:Delayed::PerformableMethod\nobject...", last_error: nil, run_at: "2015-01-24 02:57:08", locked_at: nil, failed_at: nil, locked_by: nil, queue: nil, created_at: "2015-01-24 02:56:38", updated_at: "2015-01-24 02:56:38">
+[21] pry(main)> Delayed::Job.last
+  Delayed::Backend::ActiveRecord::Job Load (0.3ms)  SELECT  "delayed_jobs".* FROM "delayed_jobs"   ORDER BY "delayed_jobs"."id" DESC LIMIT 1
+=> #<Delayed::Backend::ActiveRecord::Job id: 6, priority: 0, attempts: 0, handler: "--- !ruby/object:Delayed::PerformableMethod\nobject...", last_error: nil, run_at: "2015-01-24 02:57:08", locked_at: nil, failed_at: nil, locked_by: nil, queue: nil, created_at: "2015-01-24 02:56:38", updated_at: "2015-01-24 02:56:38">
+[22] pry(main)> Delayed::Job.last.invoke_job
+  Delayed::Backend::ActiveRecord::Job Load (0.3ms)  SELECT  "delayed_jobs".* FROM "delayed_jobs"   ORDER BY "delayed_jobs"."id" DESC LIMIT 1
+   (0.1ms)  BEGIN
+  User Exists (0.5ms)  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'b@gmail.com' LIMIT 1
+  SQL (0.2ms)  INSERT INTO "users" ("confirmed_at", "created_at", "email", "encrypted_password", "name", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["confirmed_at", "2015-01-24 02:56:38.462153"], ["created_at", "2015-01-24 02:58:17.303682"], ["email", "b@gmail.com"], ["encrypted_password", "$2a$10$cViEoSHuZFOhKDEJyFYi5.1A51Ksy7HLKY/DJVn1IKpglJBdeg00m"], ["name", "Sally"], ["updated_at", "2015-01-24 02:58:17.303682"]]
+   (6.3ms)  COMMIT
+=> nil
+[23] pry(main)> User.all
+  User Load (0.4ms)  SELECT "users".* FROM "users"
+=> [#<User id: 1, email: "a@gmail.com", encrypted_password: "$2a$10$XbHZjGEirxuLvvJ.dxdJVObAuJszezHUOpgCUcrlBck...", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, confirmation_token: nil, confirmed_at: "2015-01-24 02:27:48", confirmation_sent_at: nil, unconfirmed_email: nil, created_at: "2015-01-24 02:27:48", updated_at: "2015-01-24 02:27:48", name: "Joe">,
+ #<User id: 2, email: "b@gmail.com", encrypted_password: "$2a$10$cViEoSHuZFOhKDEJyFYi5.1A51Ksy7HLKY/DJVn1IKp...", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, confirmation_token: nil, confirmed_at: "2015-01-24 02:56:38", confirmation_sent_at: nil, unconfirmed_email: nil, created_at: "2015-01-24 02:58:17", updated_at: "2015-01-24 02:58:17", name: "Sally">]
