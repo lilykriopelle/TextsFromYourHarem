@@ -1,5 +1,7 @@
+<!-- ScheduledMessage.create(plan_id: 1, send_at: (Time.now + 60), body: "Hi Joe!", from_phone_number: "585-563-5535", active: true) -->
+
 <ul>
 	<% @scheduled_messages.each do |message| %>
-		<li><%= message.id %>, <%= message. %>
+		<li>Message ID: <%= message.id %>, Message Scheduled to send: <%= message.send_at %>, Message body: <%= message.body %>, Message will be sent from: <%= message.from_phone_number %>, Is message active?: <%= message.active %></li>
 	<% end %>
 </ul>
