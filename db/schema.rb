@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121020336) do
+ActiveRecord::Schema.define(version: 20150122003002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150121020336) do
     t.datetime "end_time",           null: false
     t.integer  "booker_id"
     t.integer  "message_pattern_id"
+    t.integer  "number_of_fake_women"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -38,6 +39,18 @@ ActiveRecord::Schema.define(version: 20150121020336) do
 
   add_index "plans", ["booker_id"], name: "index_plans_on_booker_id", using: :btree
   add_index "plans", ["message_pattern_id"], name: "index_plans_on_message_pattern_id", using: :btree
+
+  create_table "scheduled_messages", force: true do |t|
+    t.integer  "plan_id",           null: false
+    t.datetime "send_at",           null: false
+    t.text     "body",              null: false
+    t.text     "from_phone_number", null: false
+    t.boolean  "active",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "scheduled_messages", ["plan_id"], name: "index_scheduled_messages_on_plan_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

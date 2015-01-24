@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  
+  has_many(
+    :plans,
+    class_name: "Plan",
+    foreign_key: :booker_id,
+    primary_key: :id
+  )
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
 
