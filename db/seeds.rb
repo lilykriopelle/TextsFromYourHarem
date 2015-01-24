@@ -40,3 +40,15 @@ Plan.create(start_time: (Time.now + 35), end_time: (Time.now + 400), booker_id: 
 
 
 ScheduledMessage.create(plan_id: 1, send_at: (Time.now + 60), body: "Hi Joe!", from_phone_number: "585-563-5535", active: true)
+ScheduledMessage.create(plan_id: 1, send_at: (Time.now + 70), body: "Hi you're the best!", from_phone_number: "585-563-5535", active: true)
+ScheduledMessage.create(plan_id: 1, send_at: (Time.now + 80), body: "You are a god", from_phone_number: "585-563-5535", active: true)
+ScheduledMessage.create(plan_id: 1, send_at: (Time.now + 90), body: "A beautiful genius", from_phone_number: "585-563-5535", active: true)
+
+
+
+
+
+
+
+
+
