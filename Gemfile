@@ -33,11 +33,12 @@ gem 'daemons'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'faker'
 
 group :development do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'spring'
+  # gem 'spring'
 end
 
