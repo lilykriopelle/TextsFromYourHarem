@@ -26,4 +26,5 @@ class Plan < ActiveRecord::Base
   # ), dependent: :destroy
   
   has_many :scheduled_messages, dependent: :destroy
+  has_many :delayed_jobs, dependent: :destroy
 end
