@@ -1,0 +1,31 @@
+<!-- Plan.create(start_time: (Time.now), end_time: (Time.now + 360), booker_id: 1, message_pattern_id: 1, number_of_fake_women: 3, active: true) -->
+
+<form action="/plans" method="POST">
+
+  <input
+    type="hidden"
+    name="authenticity_token"
+	value="<%= form_authenticity_token %>">
+
+  <label>Start Time:
+  <input type="datetime" name="plan[start_time]" value="2015-01-25 05:16:42">
+  </label>
+  <br>
+  
+  <label>End Time:
+  <input type="datetime" name="plan[end_time]" value="2015-01-25 06:16:42">
+  </label>
+  <br>
+  
+  <label>Message Pattern ID:
+  <input type="text" name="plan[message_pattern_id]" value="1">
+  </label>
+  <br>
+
+  <label>Number of Fake Women:
+  <input type="text" name="plan[number_of_fake_women]" value="2">
+  </label>
+  <br>
+  
+  <input type="submit">
+</form>
