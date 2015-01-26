@@ -1,0 +1,8 @@
+<!--validates :start_time, :end_time, :message_pattern_id, :active, :booker_id, :number_of_fake_women -->
+
+<ul>
+	<% @plans.each do |plan| %>
+		<%#= link_to plan_url(plan) %>
+		<li><a href=<%="/plans/" + plan.id.to_s %>>Go to plan</a> Plan ID: <%= plan.id %>, Plan Start Time: <%= plan.start_time %>, Plan End Time: <%= plan.end_time %>, booker: <%= plan.booker.email %>, Number of fake women: <%= plan.number_of_fake_women %></li>
+	<% end %>
+</ul>

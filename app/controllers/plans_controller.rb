@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   def index
-    
+    @plans = Plan.all.where(booker_id: current_user.id)
   end
   
   def show
@@ -34,7 +34,9 @@ class PlansController < ApplicationController
           from_phone_number: originating_phone_numbers[i], 
           active: true
         )
-        @scheduled_message.save!
+        if @scheduled_message.save!
+          
+        end
       end
       
       redirect_to plan_url(@plan)

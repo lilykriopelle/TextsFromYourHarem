@@ -34,6 +34,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'faker'
+gem 'twilio-ruby'
 
 group :development do
   gem 'pry-rails'
