@@ -30,12 +30,12 @@ class PlansController < ApplicationController
         @scheduled_message = ScheduledMessage.create(
           plan_id: @plan.id,
           send_at: (Time.at((plan_params[:end_time].to_f - plan_params[:start_time].to_f)*rand + plan_params[:start_time].to_f)), 
-          body: Faker::Company.bs, 
+          body: Faker::Company.bs,
           from_phone_number: originating_phone_numbers[i], 
           active: true
         )
         if @scheduled_message.save!
-          
+          @scheduled_message.delay(:run_at => 10.seconds.from_now).send_via_twilio
         end
       end
       
