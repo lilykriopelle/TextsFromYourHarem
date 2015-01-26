@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
       email = auth.info.email if email_is_verified
       user = User.where(:email => email).first if email
       
+      # turns out you can't get the user's phone number from FB, so you CANNOT do this
       # phone_number = auth.info.phone if auth.info.phone
 
       # Create the user if it's a new registration
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
           name: auth.extra.raw_info.name,
           #username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0,20],
         )
         user.skip_confirmation!
         user.save!
