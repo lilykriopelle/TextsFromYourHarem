@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
       email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
       email = auth.info.email if email_is_verified
       user = User.where(:email => email).first if email
+      
+      # phone_number = auth.info.phone if auth.info.phone
 
       # Create the user if it's a new registration
       if user.nil?
