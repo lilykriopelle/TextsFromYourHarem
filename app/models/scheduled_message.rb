@@ -9,6 +9,7 @@ class ScheduledMessage < ActiveRecord::Base
   #implement the actual sending of this message here;  you can schedule the delayed job in the Plans Controller like so:
   # ScheduledMessage.delay(:run_at => 5.days.from_now).send_via_twilio
   def send_via_twilio
+    require 'twilio-ruby'
     #the actual hard implementation of the Twilio API call will go here
     
     # put your own credentials here 
@@ -23,10 +24,13 @@ class ScheduledMessage < ActiveRecord::Base
     @client.account.messages.create({
       :from => '+15855635535',
       :to => '15853191067',
-      :body => "You're the best man",
-      # :body => self.body,
+      # :body => "You're the best man",
+      :body => self.body,
     })
     #------------------------------
-
+  end
+  
+  def test_method
+    puts "testing this logging"
   end
 end

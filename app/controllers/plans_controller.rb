@@ -36,6 +36,7 @@ class PlansController < ApplicationController
         )
         if @scheduled_message.save!
           @scheduled_message.delay(:run_at => 10.seconds.from_now).send_via_twilio
+          # @scheduled_message.delay(:run_at => 10.seconds.from_now).test_method
         end
       end
       
