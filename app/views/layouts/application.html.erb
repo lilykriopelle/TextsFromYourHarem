@@ -9,7 +9,11 @@
 <body>
 
   <%= render partial: "layouts/header" %>
-  <%= yield %>
+  <div id="below-header">
+    <%= render partial: "layouts/errors" %>
+    <%= yield %>  	
+  </div>
+
   <%= render partial: "layouts/footer" %>
 
 </body>
