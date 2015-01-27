@@ -3,6 +3,9 @@
 <ul>
 	<% @plans.each do |plan| %>
 		<%#= link_to plan_url(plan) %>
-		<li><a href=<%="/plans/" + plan.id.to_s %>>Go to plan</a> Plan ID: <%= plan.id %>, Plan Start Time: <%= plan.start_time %>, Plan End Time: <%= plan.end_time %>, booker: <%= plan.booker.email %>, Number of fake women: <%= plan.number_of_fake_women %></li>
+		<li><a href=<%="/plans/" + plan.id.to_s %>>Go to plan</a> Plan ID: <%= plan.id %>, Plan Start Time: <%= plan.start_time %>, Plan End Time: <%= plan.end_time %>, booker: <%= plan.booker.email %>, Number of fake women: <%= plan.number_of_fake_women %><%= button_to('Delete this plan', plan_url(plan),
+          method: "delete", remote: true, data: { confirm: 'Are you sure?', disable_with: 'loading...' }) %></li>
 	<% end %>
 </ul>
+
+<%= link_to "Create New Plan", new_plan_url %>

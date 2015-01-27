@@ -5,3 +5,5 @@
 		<li>Message ID: <%= message.id %>, Message Scheduled to send: <%= message.send_at %>, Message body: <%= message.body %>, Message will be sent from: <%= message.from_phone_number %>, Is message active?: <%= message.active %></li>
 	<% end %>
 </ul>
+
+<%= link_to "back to all plans", plans_url %>

@@ -10,7 +10,7 @@ class ScheduledMessage < ActiveRecord::Base
   # ScheduledMessage.delay(:run_at => 5.days.from_now).send_via_twilio
   def send_via_twilio
     #TODO: figure out how to require gems in delayed_job
-    require 'twilio-ruby'
+    # require 'twilio-ruby'
     #the actual hard implementation of the Twilio API call will go here
     
     # put your own credentials here 

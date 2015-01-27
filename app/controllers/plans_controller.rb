@@ -52,7 +52,15 @@ class PlansController < ApplicationController
   end
   
   def destroy
+    @plan = Plan.find_by(id: params[:id])
+    puts @plan.id
     
+    if @plan.booker_id == current_user.id 
+      @plan.delete
+      redirect_to plans_url
+    else
+      #they are trying to delete a plan they do not own.  scold them for being a hacker.
+    end
   end
   
   def new
@@ -61,6 +69,6 @@ class PlansController < ApplicationController
   
   private
   def plan_params
-    params.require(:plan).permit(:booker_id, :start_time, :end_time, :message_pattern_id, :number_of_fake_women)
+    params.require(:plan).permit(:booker_id, :start_time, :end_time, :message_pattern_id, :number_of_fake_women, :id)
   end
 end
