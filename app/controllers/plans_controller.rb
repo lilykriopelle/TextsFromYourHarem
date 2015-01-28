@@ -25,7 +25,14 @@ class PlansController < ApplicationController
       #create the associated Scheduled messages
       #right now only create one message per woman
       originating_phone_numbers = ["585-563-5535", "585-563-5535"]
-      #<ScheduledMessage id: 1, plan_id: 1, send_at: "2015-01-24 06:45:46", body: "Hi Joe!", from_phone_number: "585-563-5535", active: true, created_at: "2015-01-24 06:44:46", updated_at: "2015-01-24 06:44:46">
+
+      #TODO change this when you deploy the application because this is on github right now      
+      account_sid = 'ACd03267451473bacc7a5551eb20befaf0'
+      auth_token = ENV['TWILIO_SECRET']
+    
+      # set up a client to talk to the Twilio REST API
+      @client = Twilio::REST::Client.new account_sid, auth_token
+      
       plan_params[:number_of_fake_women].to_i.times do |i|
         @scheduled_message = ScheduledMessage.create(
           plan_id: @plan.id,
@@ -35,7 +42,7 @@ class PlansController < ApplicationController
           active: true
         )
         if @scheduled_message.save!
-          @scheduled_message.delay(:run_at => 10.seconds.from_now).send_via_twilio
+          @scheduled_message.delay(:run_at => 10.seconds.from_now).send_via_twilio(@client)
           # @scheduled_message.delay(:run_at => 10.seconds.from_now).test_method
         end
       end
