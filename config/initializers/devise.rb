@@ -243,7 +243,7 @@ Devise.setup do |config|
   # #
   # config.omniauth :facebook, master[:facebook][:app_id], master[:facebook][:app_secret]
   
-  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET']
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
