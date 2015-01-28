@@ -35,6 +35,8 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'faker'
 gem 'twilio-ruby'
+gem 'rails_stdout_logging'
+gem 'rails_serve_static_assets'
 
 group :development do
   gem 'pry-rails'
