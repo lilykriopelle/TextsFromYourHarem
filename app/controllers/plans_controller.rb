@@ -27,7 +27,7 @@ class PlansController < ApplicationController
       originating_phone_numbers = ["585-563-5535", "585-563-5535"]
 
       #TODO change this when you deploy the application because this is on github right now      
-      account_sid = 'ACd03267451473bacc7a5551eb20befaf0'
+      account_sid = ENV['TWILIO_APP_ID']
       auth_token = ENV['TWILIO_SECRET']
     
       # set up a client to talk to the Twilio REST API
